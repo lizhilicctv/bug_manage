@@ -1,52 +1,19 @@
-ThinkPHP 6.0
-===============
+基于thinkphp6.0 和layui 。非常的简单，希望大家支持我，[https://blog.csdn.net/weixin_42249565](https://blog.csdn.net/weixin_42249565)
+李志立博客
+[https://github.com/lizhilicctv/bug_manage](https://github.com/lizhilicctv/bug_manage)
+github仓库
+[https://gitee.com/lizhiliwo/bug_manage](https://gitee.com/lizhiliwo/bug_manage)
+码云仓库
 
-> 运行环境要求PHP7.1+。
+使用方法
 
-## 主要新特性
+ 1. 登陆 域名+manage 进入总后台， 账号是，admin 密码是 lizhili 
+ 2. 创建项目 和人员 并分配权限 
+ 3.  登陆网站主页
+ 4. 登陆，不同权限拥有不同的功能
+ 5. 后台可以自己管理自己的账号。
 
-* 采用`PHP7`强类型（严格模式）
-* 支持更多的`PSR`规范
-* 原生多应用支持
-* 更强大和易用的查询
-* 全新的事件系统
-* 模型事件和数据库事件统一纳入事件系统
-* 模板引擎分离出核心
-* 内部功能中间件化
-* SESSION/Cookie机制改进
-* 对Swoole以及协程支持改进
-* 对IDE更加友好
-* 统一和精简大量用法
-
-## 安装
-
-~~~
-composer create-project topthink/think tp 6.0.*
-~~~
-
-如果需要更新框架使用
-~~~
-composer update topthink/framework
-~~~
-
-## 文档
-
-[完全开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
-
-## 参与开发
-
-请参阅 [ThinkPHP 核心框架包](https://github.com/top-think/framework)。
-
-## 版权信息
-
-ThinkPHP遵循Apache2开源协议发布，并提供免费使用。
-
-本项目包含的第三方源码和二进制文件之版权信息另行标注。
-
-版权所有Copyright © 2006-2020 by ThinkPHP (http://thinkphp.cn)
-
-All rights reserved。
-
-ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
-
-更多细节参阅 [LICENSE.txt](LICENSE.txt)
+### 如果有不明白的可以联系我，我的邮箱 lizhilimaster@163.com
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200330104252803.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjI0OTU2NQ==,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200330104304672.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjI0OTU2NQ==,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200330104320174.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjI0OTU2NQ==,size_16,color_FFFFFF,t_70#pic_center)
