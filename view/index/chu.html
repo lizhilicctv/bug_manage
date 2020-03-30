@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>BUG 管理系统-网站版</title>
+    <link rel="stylesheet" href="/static/index/css/layui.css">
+    <link rel="stylesheet" href="/static/index/css/index.css">
+</head>
+<body style="background-color: #F0F0F0;">
+
+<form style="padding: 20px;" class="layui-form" action="" method="post">
+    <input type="hidden" name="id" value="{$id}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">BUG标题</label>
+        <div class="layui-input-block">
+            <input type="text" value="{$data.title}" disabled lay-verify="required|title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">BUG级别</label>
+        <div class="layui-input-block">
+            <select lay-verify="required" >
+                <option disabled {if $data.level==1} selected {/if}>1（重要并紧急）</option>
+                <option disabled {if $data.level==2} selected {/if}>2（紧急）</option>
+                <option disabled {if $data.level==3} selected {/if}>3（重要）</option>
+                <option disabled {if $data.level==4} selected {/if}>4（微小）</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理结果</label>
+        <div class="layui-input-block" >
+            <input type="radio" {if $data.res==0} checked {/if} name="res" value="0" title="尚未接受">
+            <input type="radio" {if $data.res==1} checked {/if} name="res" value="1" title="设计如此">
+            <input type="radio" {if $data.res==2} checked {/if} name="res" value="2" title="外部原因">
+            <input type="radio" {if $data.res==3} checked {/if} name="res" value="3" title="已解决">
+            <input type="radio" {if $data.res==4} checked {/if} name="res" value="4" title="无法重现">
+            <input type="radio" {if $data.res==5} checked {/if} name="res" value="5" title="延期处理">
+            <input type="radio" {if $data.res==6} checked {/if} name="res" value="6" title="不予解决">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">解决说明</label>
+        <div class="layui-input-block">
+            <textarea name="res_text" placeholder="请输入内容" class="layui-textarea">{$data.res_text}</textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">BUG描述</label>
+        <div class="layui-input-block">
+            <textarea lay-verify="content" id="LAY_demo_editor">{$data.bug_text|raw}</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+        </div>
+    </div>
+</form>
+
+<script src="/static/index/layui.js"></script>
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function() {
+        var layer = layui.layer,
+            form = layui.form;
+    });
+    layui.use('layedit', function() {
+        var layedit = layui.layedit;
+        layedit.set({
+            uploadImage: {
+                url: 'imgupdate' //接口url
+                ,type: '' //默认post
+            }
+        });
+        layedit.build('LAY_demo_editor', {
+            height: 480 //设置编辑器高度
+        }); //建立编辑器
+    });
+</script>
+</body>
+</html>

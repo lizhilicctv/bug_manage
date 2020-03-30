@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>BUG 管理系统-网站版</title>
+    <link rel="stylesheet" href="/static/index/css/layui.css">
+    <link rel="stylesheet" href="/static/index/css/index.css">
+</head>
+<body style="background-color: #F0F0F0;">
+
+
+<div id="min">
+    <div class="layadmin-user-login-box layadmin-user-login-header">
+        <h2>BUG 管理系统-网站版</h2>
+        <p>化繁为简，专注用心、免费为您提供开源的bug管理系统——李志立开发</p>
+    </div>
+
+    <form action="" method="post">
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label style="z-index: 999999;" class="layadmin-user-login-icon layui-icon layui-icon-spread-left"></label>
+                <select  name="item" lay-verify="required">
+                    <option value=""></option>
+                    {volist name="item" id="vo"}
+                    <option value="{$vo.id}">{$vo.name}</option>
+                    {/volist}
+                </select>
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+                <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                <input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-xs7">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
+                        <input type="text" name="captcha" id="LAY-user-login-vercode" lay-verify="required" placeholder="图形验证码" class="layui-input">
+                    </div>
+                    <div class="layui-col-xs5">
+                        <div style="margin-left: 10px;">
+                            <img src="{:captcha_src()}" alt="captcha" onclick="this.src='{:captcha_src()}?'+Math.random()"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" type="submit" lay-submit="" lay-filter="LAY-user-login-submit">登 入</button>
+            </div>
+
+    </form>
+
+
+
+</div>
+</div>
+
+
+
+
+<div class="layui-trans layadmin-user-login-footer">
+
+    <p>© 2020 <a href="https://blog.csdn.net/weixin_42249565" target="_blank">李志立博客</a><a href="https://github.com/lizhilicctv/bug_manage" target="_blank">github仓库</a><a href="https://gitee.com/lizhiliwo/bug_manage" target="_blank">码云仓库</a></p>
+
+</div>
+
+<script src="/static/index/layui.js"></script>
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function() {
+        var layer = layui.layer,
+            form = layui.form;
+    });
+</script>
+</body>
+</html>

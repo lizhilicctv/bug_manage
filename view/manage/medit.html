@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>BUG 管理系统-网站版</title>
+    <link rel="stylesheet" href="/static/index/css/layui.css">
+    <link rel="stylesheet" href="/static/index/css/index.css">
+</head>
+<body style="background-color: #F0F0F0;">
+
+<form style="padding: 20px;" class="layui-form" action="" method="post">
+    <input type="hidden" name="id" value="{$data.id}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" value="{$data.username}" disabled lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户密码</label>
+        <div class="layui-input-block">
+            <input type="text" name="password" autocomplete="off" placeholder="不修改请留空" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户身份</label>
+        <div class="layui-input-block">
+            <input type="radio" name="type" value="1" title="测试人员" {if $data['type']==1 } checked  {/if}>
+            <input type="radio" name="type" value="2" title="运维人员" {if $data['type']==2 } checked  {/if}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择项目</label>
+        <div class="layui-input-block">
+            {volist name="item" id="data1"}
+            <input type="checkbox" name="item[]" value="{$data1.id}" title="{$data1.name}" {if in_array($data1.id, $admin_item) } checked  {/if}>
+            {/volist}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否启用</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="isopen" {if $data['isopen']==1 } checked  {/if} lay-skin="switch">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">用户说明</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容" lay-verify="required" name="desc" class="layui-textarea">{$data.desc}</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+        </div>
+    </div>
+</form>
+
+<script src="/static/index/layui.js"></script>
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function() {
+        var layer = layui.layer,
+            form = layui.form;
+    });
+</script>
+</body>
+</html>

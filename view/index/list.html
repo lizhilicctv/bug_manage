@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>BUG 管理系统-网站版</title>
+    <link rel="stylesheet" href="/static/index/css/layui.css">
+    <link rel="stylesheet" href="/static/index/css/index.css">
+</head>
+
+<body style="background-color: #F0F0F0;">
+<ul class="layui-nav">
+    <li class="layui-nav-item">
+        <a style="font-size: 18px;font-weight: 600;" href="#">BUG 管理系统-网站版</a>
+    </li>
+<!--    <li class="layui-nav-item">-->
+<!--        <a href="http://www.linglukeji.com" target="_blank">公司官网<span class="layui-badge-dot"></span></a>-->
+<!--    </li>-->
+    <li class="layui-nav-item">
+        <a href="http://down.linglukeji.com/" target="_blank">自己编写下载站<span class="layui-badge-dot"></span></a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="javascript:;" onclick="about()">关于项目</a>
+    </li>
+    <li style="float: right;margin-right: 150px;font-size: 16px;" class="layui-nav-item">
+        {$item_name}
+    </li>
+
+    <li class="layui-nav-item" lay-unselect="">
+        <a href="javascript:;">（{$admin_type==1?'测试':'运维'}）{:session('username')}</a>
+        <dl class="layui-nav-child" style="z-index: 9999;">
+            <dd><a onclick="xiu()" href="javascript:;">修改密码</a></dd>
+            <dd><a href="out.html">退了</a></dd>
+        </dl>
+    </li>
+</ul>
+<div class="layui-fluid" style="margin-top: 15px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">BUG 列表</div>
+                <div class="layui-card-body">
+                    <table class="layui-hide" id="test-table-toolbar" lay-filter="test-table-toolbar"></table>
+                    <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-10" lay-id="test-table-toolbar" style=" ">
+                        <div class="layui-table-tool">
+                            <div class="layui-table-tool-temp">
+                                <div class="layui-btn-container">
+                                    {if $admin_type==1}
+                                    <button onclick="jia()" class="layui-btn layui-btn-sm" lay-event="getCheckData">
+                                        <i class="layui-icon layui-icon-addition"></i>
+                                        添加BUG</button>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-table-box">
+                            <div class="layui-table-header">
+                                <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th class=" layui-unselect">
+                                            <div class="layui-table-cell"><span>编号</span></div>
+                                        </th>
+                                        <th class="">
+                                            <div class="layui-table-cell"><span>级别</span></div>
+                                        </th>
+                                        <th style="width: 35%;">
+                                            <div class="layui-table-cell"><span>标题</span></div>
+                                        </th>
+                                        <th class="layui-unselect">
+                                            <div class="layui-table-cell"><span>BUG提交者</span></div>
+                                        </th>
+                                        <th class="">
+                                            <div class="layui-table-cell"><span>提交时间</span></div>
+                                        </th>
+                                        <th class="layui-unselect">
+                                            <div class="layui-table-cell"><span>BUG处理者</span></div>
+                                        </th>
+                                        <th class="">
+                                            <div class="layui-table-cell"><span>处理时间</span></div>
+                                        </th>
+                                        <th class="">
+                                            <div class="layui-table-cell"><span>解决结果</span></div>
+                                        </th>
+                                        <th>
+                                            <div class="layui-table-cell "><span>编辑</span></div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {volist name="list" id="data"}
+                                    <tr class="">
+                                        <td><div class="layui-table-cell">{$data.on}</div></td>
+                                        <td><div class="layui-table-cell">
+                                            {switch $data.level}
+                                            {case 1}<span style="color: red">1重要紧急</span>{/case}
+                                            {case 2}<span style="color: #CC6600">2紧急</span>{/case}
+                                            {case 3}<span style="color: #FF9900">3重要</span>{/case}
+                                            {case 4}<span style="color: #FFCC00">4微小</span>{/case}
+                                            {/switch}
+                                        </div></td>
+                                        <td><div class="layui-table-cell">{$data.title}</div></td>
+                                        <td><div class="layui-table-cell">{$data.bugname}</div></td>
+                                        <td><div class="layui-table-cell">{$data.bug_time|date='Y-m-d H:i'}</div></td>
+                                        <td><div class="layui-table-cell">{$data.resname|default="没有修改"}</div></td>
+                                        <td><div class="layui-table-cell">
+                                            {if $data.res_time }
+                                            {$data.res_time|date='Y-m-d H:i'}
+                                            {else /}
+                                            尚未修改
+                                            {/if}
+                                        </div></td>
+                                        <td><div class="layui-table-cell">
+                                            {switch $data.res}
+                                            {case 0}尚未解决{/case}
+                                            {case 1}设计如此{/case}
+                                            {case 2}外部原因{/case}
+                                            {case 3}已解决{/case}
+                                            {case 4}无法重现{/case}
+                                            {case 5}延期解决{/case}
+                                            {case 6}不予解决{/case}
+                                            {/switch}
+                                        </div></td>
+                                        <td class="layui-table-col-special">
+                                            <div class="layui-table-cell">
+                                                <!--<a onclick="put()" class="layui-btn layui-btn-xs">确认接受</a>-->
+                                                {if $admin_type==2}
+                                                    {if $data.ischu==1}
+                                                        <a onclick="handle('{$data.id}')" class="layui-btn layui-btn-normal layui-btn-xs">已经处理</a>
+                                                    {else}
+                                                      <a onclick="handle('{$data.id}')" class="layui-btn layui-btn-danger layui-btn-xs">处理BUG</a>
+                                                    {/if}
+                                                {else}
+                                                    {if $data.ischu==1}
+                                                         <a onclick="edit('{$data.id}')" class="layui-btn layui-btn-normal layui-btn-xs">已经处理</a>
+                                                    {else}
+                                                          <a onclick="edit('{$data.id}')" class="layui-btn layui-btn-xs">编辑</a>
+                                                    {/if}
+
+                                                {/if}
+                                                <!--<a onclick="del()" class="layui-btn layui-btn-danger layui-btn-xs">删除</a>-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="layui-table-page" style="padding: 4px 10px">
+                           {$list|raw}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/index/layui.js"></script>
+
+<script>
+    layui.use('element', function(){
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+    });
+
+    function jia(){
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            var index = layer.open({
+                type: 2,
+                title: '添加BUG',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['1100px', '700px'],
+                content: 'add.html' //iframe的url
+            });
+
+        });
+    }
+    function edit(id){
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            var index=layer.open({
+                type: 2,
+                title: '编辑BUG',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['1100px', '700px'],
+                content: 'edit.html?id='+id //iframe的url
+            });
+
+        });
+
+    }
+    function handle(id){
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            layer.open({
+                type: 2,
+                title: '处理 BUG',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['1000px', '700px'],
+                content: 'chu.html?id='+id //iframe的url
+            });
+        });
+    }
+    // function del(obj,id){
+    //     layui.use('layer', function(){ //独立版的layer无需执行这一句
+    //         var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+    //         layer.confirm('确认要删除吗？',function(index){
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 url: '',
+    //                 dataType: 'json',
+    //                 success: function(data){
+    //                     $(obj).parents("tr").remove();
+    //                     layer.msg('已删除!',{icon:1,time:1000});
+    //                 },
+    //                 error:function(data) {
+    //                     console.log(data.msg);
+    //                 },
+    //             });
+    //         });
+    //     });
+    // }
+    // function put(id){
+    //     layui.use('layer', function(){ //独立版的layer无需执行这一句
+    //         var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+    //         layer.confirm('确认要接受吗？',function(index){
+    //             $.post(
+    //             "{:url('ajax')}",
+    //             {
+    //                 type:'put',
+    //                 id:id
+    //             },
+    //             function(data,status){
+    //
+    //             });
+    //         });
+    //     });
+    // }
+    function xiu(){
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            var index = layer.open({
+                type: 2,
+                title: '添加项目',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['500px', '200px'],
+                content: 'xiu.html' //iframe的url
+            });
+
+        });
+    }
+    function about() {
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            layer.alert('这个是我开发的一个简单的bug管理系统，我的邮箱，lizhilimaster@163.com。你可以访问我的博客：https://blog.csdn.net/weixin_42249565。我的github： https://github.com/lizhilicctv 。码云仓库：https://gitee.com/lizhiliwo/ ')
+
+        });
+    }
+</script>
+</body>
+
+</html>
